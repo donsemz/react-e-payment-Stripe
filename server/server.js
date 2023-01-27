@@ -1,11 +1,17 @@
 const express = require('express');
 var cors = require('cors');
-const stripe = require('stripe')('sk_test_51Lz2OWB7xSl0hlRQGluI7zjDwntOBDg5Q0hL97xncqoSQ3FdOumUcGmleVT5CMh1yFcUUoCjyIldbnAtufH7SCKc00dSrUFd1O');
+require('dotenv').config();
+
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 const app = express();
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
+
+app.get("/", async(req,res)=>{
+    res.send("<h1>Welcome to Your Payment App!!</h1>")
+});
 
 app.post("/checkout", async (req, res) => {
     /*
